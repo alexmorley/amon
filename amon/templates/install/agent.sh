@@ -27,13 +27,13 @@ fi
 
 # Proper distro detection - for Ansible
 DISTRO_ID=$(
-python - <<EOF
+python2.7 - <<EOF
 import platform ; print platform.dist()[0].lower()
 EOF
 )
 
 DISTRO_VERSION=$(
-python - <<EOF
+python2.7 - <<EOF
 import platform
 distro = platform.dist()[1].replace(',','.')
 distro_list = distro.split(".")
@@ -88,7 +88,7 @@ function add_repos(){
 
     elif [ $DISTRO == 'rpm' ]; then
         $sudo_cmd sh -c "echo -e '[amon]\nname = Amon.\nbaseurl = http://packages.amon.cx/rpm/\nenabled=1\ngpgcheck=0\npriority=1' > /etc/yum.repos.d/amon.repo"
-        $sudo_cmd yum install -y epel-release
+        #$sudo_cmd yum install -y epel-release
 
     fi
 
@@ -166,6 +166,10 @@ printf "\033[32m All done.
    For more troubleshooting instructions, please see the Documentation:
 
         https://amon.cx/docs
+    
+
+   Now run:
+       sudo service amonagent start
 
 \033[0m"
 
